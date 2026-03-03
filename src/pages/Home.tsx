@@ -1,25 +1,23 @@
-import { Button, Checkbox, Col, Collapse, Divider, Flex, Form, Input, Row, Select, Tag, Typography } from 'antd'
+import { Button, Checkbox, Col, Flex, Form, Input, Row, Select, Typography } from 'antd'
 import { FunctionComponent, useEffect, useState } from 'react'
 import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Image1, Image10, Image2, Image3, Image4, Image5, Image6, Image7, Image8, Image9, Slide1, Slide2, Slide3, Slide4, SubmitButton } from '../assets'
-import styled from 'styled-components'
-import { DownOutlined } from '@ant-design/icons'
 
+import { useForm } from 'antd/es/form/Form'
 import 'swiper/css'
 import 'swiper/css/autoplay'
 import 'swiper/css/pagination'
 import { MarketingDrawer } from '../drawer/MarketingDrawer'
 import { PrivacyTermDrawer } from '../drawer/PrivacyTermDrawer'
 import { ThreePartyTermDrawer } from '../drawer/ThreePartyTermDrawer'
-import { useForm } from 'antd/es/form/Form'
 import { Branch } from './component/Branch'
-const { Text, } = Typography
 
 export const Home: FunctionComponent = () => {
     const [privacy, setPrivacy] = useState<boolean>(false)
     const [marketing, setMarketing] = useState<boolean>(false)
     const [thirdparty, setThirdparty] = useState<boolean>(false)
+    const [type, setType] = useState<'파산' | '개인 회생' | null>('개인 회생')
     const slides = [Slide1, Slide2, Slide3, Slide4]
 
     const [form] = useForm()
@@ -198,14 +196,32 @@ export const Home: FunctionComponent = () => {
                             <Button
                                 block
                                 size='large'
-                                style={{ height: 48, borderRadius: 8 }}
+                                // type={type === '개인 회생' ? 'primary' : 'default'}
+                                style={{
+                                    height: 48,
+                                    borderRadius: 8,
+                                    backgroundColor: type === '개인 회생' ? '#2A1F1B' : undefined,
+                                    color: type === '개인 회생' ? '#fff' : undefined,
+                                }}
+                                onClick={() => {
+                                    setType('개인 회생')
+                                }}
                             >
                                 {'개인 회생'}
                             </Button>
                             <Button
                                 block
                                 size='large'
-                                style={{ height: 48, borderRadius: 8 }}
+                                // type={type === '파산' ? 'primary' : 'default'}
+                                style={{
+                                    height: 48,
+                                    borderRadius: 8,
+                                    backgroundColor: type === '파산' ? '#2A1F1B' : undefined,
+                                    color: type === '파산' ? '#fff' : undefined,
+                                }}
+                                onClick={() => {
+                                    setType('파산')
+                                }}
                             >
                                 {'파산'}
                             </Button>
@@ -319,19 +335,20 @@ export const Home: FunctionComponent = () => {
                 </Flex>
             </Col>
             <Col span={24} style={{ textAlign: 'center' }}>
-                <img
-                    src={Image6}
-                    alt={'이미지6'}
-                    style={{ width: '100%' }}
-                />
+                <a href='tel:15775469'>
+                    <img
+                        src={Image6}
+                        alt={'이미지6'}
+                        style={{ width: '100%' }}
+                    />
+                </a>
             </Col>
-            <Col span={24} style={{ }}>
+            <Col span={24} style={{ paddingBottom: 64, backgroundColor: '#F3EEE8', }}>
                 <img
                     src={Image7}
                     alt={'이미지7'}
                     style={{ width: '100%' }}
                 />
-
                 <Branch />
             </Col>
             <Col span={24} style={{ textAlign: 'center' }}>

@@ -182,7 +182,9 @@ export const Branch: FunctionComponent = () => {
                                         </div>
                                         <div>
                                             <Text type="secondary" style={{ marginRight: '15px' }}>
-                                                <span style={{ fontSize: '12px', fontWeight: 'bold' }}>T.</span> {branch.tel}
+                                                <a href={`tel:${branch.tel}`}>
+                                                    <span style={{ fontSize: '12px', fontWeight: 'bold' }}>T.</span> {branch.tel}
+                                                </a>
                                             </Text>
                                             <Text type="secondary">
                                                 <span style={{ fontSize: '12px', fontWeight: 'bold' }}>F.</span> {branch.fax}
