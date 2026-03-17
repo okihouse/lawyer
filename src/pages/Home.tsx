@@ -23,30 +23,33 @@ export const Home: FunctionComponent = () => {
 
     // 1. 부모 컨테이너를 참조하기 위한 Ref
     const containerRef = useRef<HTMLDivElement>(null);
-    const [messageApi, contextHolder] = message.useMessage();
+    const [messageApi, contextHolder] = message.useMessage()
+
+    message.config({
+        getContainer: () => containerRef.current || document.body,
+    })
 
     const [form] = useForm()
 
     const showNotice = () => {
         messageApi.open({
             content: (
-                <div style={{ textAlign: 'left', padding: '8px 4px' }}>
-                    <div style={{ fontSize: '16px', fontWeight: 500, marginBottom: '8px', color: '#fff' }}>
-                        보다 깊이 있는 상담을 위해<br />
-                        하루 최대 5건으로 제한하여 진행합니다.
-                    </div>
-                    <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#D4B483' }}>
-                        금일 5건 중 3건 접수
+                <div style={{ maxWidth: 520, minWidth: 375, textAlign: 'left', borderBlock: '1px solid #fff' }}>
+                    <div style={{ paddingInline: 16, paddingBlock: 12 }}>
+                        <div style={{ fontSize: '16px', fontWeight: 500, marginBottom: '8px', color: '#CFC4BA' }}>
+                            보다 깊이 있는 상담을 위해<br />
+                            하루 최대 5건으로 제한하여 진행합니다.
+                        </div>
+                        <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#CFC4BA' }}>
+                            금일 5건 중 3건 접수
+                        </div>
                     </div>
                 </div>
             ),
-            duration: 30, // 3초 후 자동으로 사라짐
-            // 팝업 전체 스타일 커스텀 (인라인)
+            duration: 4, // 3초 후 자동으로 사라짐
             style: {
                 marginTop: 24,
-                // maxWidth: 520,
             },
-            // 안트 디자인 내부 클래스 스타일 제어를 위한 아이콘 비우기 또는 커스텀
             icon: <span />,
         });
     };
