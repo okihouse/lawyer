@@ -8,6 +8,7 @@ import Image7 from "./images/7.png"
 import Image8 from "./images/8.png"
 import Image9 from "./images/9.png"
 import Image10 from "./images/10.png"
+import Image11 from "./images/11.png"
 
 import SubmitButton from "./images/button.png"
 
@@ -27,6 +28,7 @@ export {
     Image8,
     Image9,
     Image10,
+    Image11,
 
     SubmitButton,
 

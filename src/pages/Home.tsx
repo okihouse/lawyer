@@ -1,8 +1,8 @@
-import { Button, Checkbox, Col, Flex, Form, Input, Row, Select, Typography } from 'antd'
-import { FunctionComponent, useEffect, useState } from 'react'
+import { Button, Checkbox, Col, Flex, Form, Input, List, message, Row, Select, Tag, Typography } from 'antd'
+import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Image1, Image10, Image2, Image3, Image4, Image5, Image6, Image7, Image8, Image9, Slide1, Slide2, Slide3, Slide4, SubmitButton } from '../assets'
+import { Image1, Image10, Image11, Image2, Image3, Image4, Image5, Image6, Image7, Image8, Image9, Slide1, Slide2, Slide3, Slide4, SubmitButton } from '../assets'
 
 import { useForm } from 'antd/es/form/Form'
 import 'swiper/css'
@@ -12,6 +12,7 @@ import { MarketingDrawer } from '../drawer/MarketingDrawer'
 import { PrivacyTermDrawer } from '../drawer/PrivacyTermDrawer'
 import { ThreePartyTermDrawer } from '../drawer/ThreePartyTermDrawer'
 import { Branch } from './component/Branch'
+import { Consulting } from './component/Consulting'
 
 export const Home: FunctionComponent = () => {
     const [privacy, setPrivacy] = useState<boolean>(false)
@@ -20,22 +21,53 @@ export const Home: FunctionComponent = () => {
     const [type, setType] = useState<'파산' | '개인 회생' | null>('개인 회생')
     const slides = [Slide1, Slide2, Slide3, Slide4]
 
+    // 1. 부모 컨테이너를 참조하기 위한 Ref
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [messageApi, contextHolder] = message.useMessage();
+
     const [form] = useForm()
 
+    const showNotice = () => {
+        messageApi.open({
+            content: (
+                <div style={{ textAlign: 'left', padding: '8px 4px' }}>
+                    <div style={{ fontSize: '16px', fontWeight: 500, marginBottom: '8px', color: '#fff' }}>
+                        보다 깊이 있는 상담을 위해<br />
+                        하루 최대 5건으로 제한하여 진행합니다.
+                    </div>
+                    <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#D4B483' }}>
+                        금일 5건 중 3건 접수
+                    </div>
+                </div>
+            ),
+            duration: 30, // 3초 후 자동으로 사라짐
+            // 팝업 전체 스타일 커스텀 (인라인)
+            style: {
+                marginTop: 24,
+                // maxWidth: 520,
+            },
+            // 안트 디자인 내부 클래스 스타일 제어를 위한 아이콘 비우기 또는 커스텀
+            icon: <span />,
+        });
+    };
+
     useEffect(() => {
+        showNotice()
     }, [])
 
     return (
         <Row
+            ref={containerRef}
             justify={'center'}
             align={'middle'}
             style={{
-                width: 520,
+                maxWidth: 520,
                 margin: '0 auto',
                 height: window.innerHeight,
                 backgroundColor: '#F6F1E8',
             }}
         >
+            {contextHolder}
             <Col span={24} style={{ textAlign: 'center' }}>
                 <img
                     src={Image1}
@@ -365,10 +397,18 @@ export const Home: FunctionComponent = () => {
                     style={{ width: '100%' }}
                 />
             </Col>
-            <Col span={24} style={{ textAlign: 'center' }}>
+            <Col span={24} style={{ textAlign: 'center', }}>
                 <img
                     src={Image10}
                     alt={'이미지10'}
+                    style={{ width: '100%' }}
+                />
+                <Consulting />
+            </Col>
+            <Col span={24} style={{ textAlign: 'center' }}>
+                <img
+                    src={Image11}
+                    alt={'이미지11'}
                     style={{ width: '100%' }}
                 />
             </Col>

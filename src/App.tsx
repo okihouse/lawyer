@@ -19,6 +19,11 @@ const App = () => {
                     colorBgContainer: '#fdfeff',
                 },
                 components: {
+                    Message: {
+                        // 메시지 박스의 배경색을 이미지와 같은 어두운 브라운으로 설정
+                        contentBg: '#2B2624',
+                        colorText: '#ffffff',
+                    },
                     Menu: {
                         horizontalLineHeight: '62px',
                         itemSelectedBg: '#e2e2e2'
