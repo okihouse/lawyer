@@ -99,21 +99,7 @@ export const Home: FunctionComponent = () => {
                     style={{ width: '100%' }}
                 />
             </Col>
-            <Col span={24} style={{ textAlign: 'center', backgroundColor: '#F6F1E8', paddingBottom: 64 }}>
-                <style>{`
-                    .swiper-pagination-bullet {
-                        width: 12px;
-                        height: 12px;
-                        background: #D6CCC2;      /* 비활성 상태 색상 */
-                        opacity: 1;
-                    }
-                    .swiper-pagination-bullet-active {
-                        width: 12px;           /* 강조될 때 가로로 길게 (선택사항) */
-                        border-radius: 6px;    /* 둥근 사각형 형태 */
-                        background: #2A1F1B;   /* 활성 상태 강조 색상 (파란색 예시) */
-                        transition: all 0.3s;  /* 부드러운 전환 효과 */
-                    }
-                `}</style>
+            <Col span={24} style={{ textAlign: 'center', backgroundColor: '#F6F1E8 !important', paddingBottom: 64 }}>
                 <Swiper
                     modules={[Autoplay, Pagination]}
                     slidesPerView={2}          // 한 번에 2개 노출
