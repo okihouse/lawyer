@@ -1,5 +1,6 @@
 import { Button, Checkbox, Col, Flex, Form, Input, List, message, Row, Select, Tag, Typography } from 'antd'
 import { FunctionComponent, useEffect, useRef, useState } from 'react'
+import { SmsService } from '../services/SmsService'
 import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Image1, Image10, Image11, Image2, Image3, Image4, Image5, Image6, Image7, Image8, Image9, Slide1, Slide2, Slide3, Slide4, SubmitButton } from '../assets'
@@ -30,6 +31,27 @@ export const Home: FunctionComponent = () => {
     })
 
     const [form] = useForm()
+    const [loading, setLoading] = useState(false)
+
+    const handleSubmit = async () => {
+        try {
+            const values = await form.validateFields()
+            if (!type) {
+                messageApi.error('상담 분야를 선택해 주세요.')
+                return
+            }
+            setLoading(true)
+            const msg = `[상담신청] 이름: ${values.name}, 연락처: ${values.phone}, 분야: ${type}, 채무금액: ${values.budget}`
+            await SmsService.send(values.phone, msg)
+            messageApi.success('상담 신청이 완료되었습니다!')
+            form.resetFields()
+        } catch (err: any) {
+            if (err?.errorFields) return // 유효성 검사 실패는 antd가 처리
+            messageApi.error('전송 중 오류가 발생했습니다. 다시 시도해 주세요.')
+        } finally {
+            setLoading(false)
+        }
+    }
 
     const showNotice = () => {
         messageApi.open({
@@ -346,7 +368,7 @@ export const Home: FunctionComponent = () => {
                 </Form>
 
                 <Flex style={{ paddingInline: 16, marginTop: 42 }}>
-                    <a>
+                    <a onClick={handleSubmit} style={{ width: '100%', opacity: loading ? 0.6 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}>
                         <img
                             src={SubmitButton}
                             alt={'SubmitButton'}

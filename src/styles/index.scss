@@ -539,7 +539,6 @@ html {
 
 /* 강제로 모든 요소를 라이트 모드 스타일로 적용 */
 @media (prefers-color-scheme: dark) {
-
     :root,
     body,
     html {}
